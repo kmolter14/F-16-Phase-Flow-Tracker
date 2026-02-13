@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import LoginForm from './components/LoginForm';
-import Dashboard from './components/Dashboard';
-import InspectionForm from './components/InspectionForm';
-import InspectionTable from './components/InspectionTable';
-import InspectionList from './components/InspectionList';
+import Header from './Header';
+import LoginForm from './LoginForm';
+import Dashboard from './Dashboard';
+import InspectionForm from './InspectionForm';
+import InspectionTable from './InspectionTable';
+import InspectionList from './InspectionList';
 import F16Silhouette from './F16Silhouette';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -18,6 +18,11 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  const inspections = [
+    { id: 1, jetId: 'FJ-123', inspector: 'John Doe', date: '2023-04-14' },
+    { id: 2, jetId: 'FJ-234', inspector: 'Jane Smith', date: '2023-04-13' },
+  ];
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline /> 
@@ -25,11 +30,17 @@ function App() {
         <div className="App">
           <Header />
           <Routes>
-            <Route path="/" exact element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/inspection-form" element={<InspectionForm />} />
-            <Route path="/inspection-table" element={<InspectionTable />} />
-            <Route path="/inspection-list" element={<InspectionList />} />
+            <Route
+              path="/inspection-table"
+              element={<InspectionTable inspections={inspections} />}
+            />
+            <Route
+              path="/inspection-list"
+              element={<InspectionList inspections={inspections} />}
+            />
             <Route path="/F16-Silhouette" element={<F16Silhouette />} />
           </Routes>
         </div>
